@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Bộ checklist 8 chỉ báo trước khi vào lệnh — NoDopamineTrading">
+<title>Pre-Trade Checklist · NoDopamineTrading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Variables ─────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:       #0d1117;
+  --bg2:      #161b22;
+  --bg3:      #21262d;
+  --border:   #30363d;
+  --border2:  #484f58;
+  --text:     #e6edf3;
+  --muted:    #8b949e;
+  --blue:     #58a6ff;
+  --green:    #3fb950;
+  --red:      #f85149;
+  --yellow:   #d29922;
+  --orange:   #e08c4d;
+  --gold:     #c9a227;
+  --radius:   12px;
+  --radius-sm:8px;
+  --shadow:   0 4px 24px rgba(0,0,0,0.4);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{cursor:pointer;font-family:inherit;border:none;outline:none}
+input{font-family:'JetBrains Mono',monospace;outline:none;border:none}
+a{color:var(--blue);text-decoration:none}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+.page{max-width:1100px;margin:0 auto;padding:0 16px 60px}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0 12px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);backdrop-filter:blur(8px);
+}
+.hdr-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-logo{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#1a3a6a 0%,#0d6efd 60%,#c9a227 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#fff;letter-spacing:-1px;
+}
+.brand-name{font-weight:800;font-size:15px;color:var(--text);line-height:1.1}
+.brand-sub{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.lang-btn{
+  padding:5px 12px;border-radius:20px;
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--muted);font-size:12px;font-weight:600;
+  transition:all .2s;
+}
+.lang-btn:hover,.lang-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+.hero{padding:28px 0 20px;text-align:center}
+.hero-title{font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.2;letter-spacing:-.02em}
+.hero-title span{background:linear-gradient(90deg,var(--blue),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:var(--muted);font-size:14px;margin-top:8px;max-width:500px;margin-inline:auto}
+
+/* ── Trade Setup Bar ───────────────────────────────────────────────────── */
+.setup-bar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;margin-bottom:20px;
+}
+.setup-field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:120px}
+.setup-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.setup-input{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);
+  color:var(--text);font-size:14px;padding:9px 12px;width:100%;
+  transition:border-color .2s;
+}
+.setup-input:focus{border-color:var(--blue)}
+.dir-toggle{display:flex;gap:6px}
+.dir-btn{
+  flex:1;padding:9px 16px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:700;border:2px solid var(--border);
+  background:var(--bg3);color:var(--muted);transition:all .2s;
+}
+.dir-btn.buy.active{background:#0d2a0d;border-color:var(--green);color:var(--green)}
+.dir-btn.sell.active{background:#2a0d0d;border-color:var(--red);color:var(--red)}
+.dir-btn:hover{border-color:var(--border2);color:var(--text)}
+
+/* ── Indicator Grid ────────────────────────────────────────────────────── */
+.grid-title{
+  font-size:11px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.grid-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.ind-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;margin-bottom:24px;
+}
+@media(max-width:900px){.ind-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.ind-grid{grid-template-columns:1fr}}
+
+.ind-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;
+  transition:border-color .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.ind-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--border);border-radius:var(--radius) var(--radius) 0 0;
+  transition:background .25s;
+}
+.ind-card.state-favorable{border-color:#1e4a1e;box-shadow:0 0 0 1px #1e4a1e}
+.ind-card.state-favorable::before{background:var(--green)}
+.ind-card.state-against{border-color:#4a1e1e;box-shadow:0 0 0 1px #4a1e1e}
+.ind-card.state-against::before{background:var(--red)}
+.ind-card.state-neutral::before{background:var(--yellow)}
+
+.ind-header{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.ind-icon{font-size:22px;line-height:1;flex-shrink:0;margin-top:1px}
+.ind-info{flex:1;min-width:0}
+.ind-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.2}
+.ind-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.ind-hint{
+  font-size:10px;color:var(--blue);margin-top:4px;
+  font-style:italic;display:none;
+}
+.ind-hint.visible{display:block}
+
+/* 3-state toggle */
+.state-toggle{display:flex;gap:4px;margin-top:8px}
+.state-btn{
+  flex:1;padding:7px 4px;border-radius:6px;
+  font-size:11px;font-weight:700;
+  background:var(--bg3);border:1.5px solid var(--border);
+  color:var(--muted);transition:all .18s;white-space:nowrap;
+}
+.state-btn:hover{border-color:var(--border2);color:var(--text)}
+.state-btn.favorable.active{background:#0d2a0d;border-color:var(--green);color:var(--green)}
+.state-btn.neutral.active{background:#2a2200;border-color:var(--yellow);color:var(--yellow)}
+.state-btn.against.active{background:#2a0d0d;border-color:var(--red);color:var(--red)}
+.state-badge{
+  position:absolute;top:10px;right:10px;
+  font-size:14px;opacity:.85;
+}
+
+/* ── Consensus Panel ───────────────────────────────────────────────────── */
+.consensus{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;margin-bottom:20px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.consensus-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.score-circle{
+  width:80px;height:80px;border-radius:50%;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:3px solid var(--border);transition:border-color .3s;
+  background:var(--bg3);position:relative;
+}
+.score-circle.strong{border-color:var(--green)}
+.score-circle.go{border-color:#5fa35f}
+.score-circle.wait{border-color:var(--yellow)}
+.score-circle.avoid{border-color:var(--red)}
+.score-num{font-size:22px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1}
+.score-denom{font-size:10px;color:var(--muted)}
+.verdict-block{flex:1;min-width:180px}
+.verdict-label{font-size:22px;font-weight:900;letter-spacing:-.01em;margin-bottom:4px}
+.verdict-label.strong{color:var(--green)}
+.verdict-label.go{color:#5fa35f}
+.verdict-label.wait{color:var(--yellow)}
+.verdict-label.avoid{color:var(--red)}
+.verdict-sub{font-size:13px;color:var(--muted);line-height:1.4}
+.score-bar-wrap{width:100%}
+.score-bar-track{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:3px;transition:width .4s ease,background .4s;background:var(--yellow);width:50%}
+.score-dots{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
+.dot{
+  width:28px;height:28px;border-radius:50%;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg3);border:1.5px solid var(--border);
+  transition:all .2s;font-weight:700;
+}
+.dot.favorable{background:#0d2a0d;border-color:var(--green);color:var(--green)}
+.dot.neutral{background:#2a2200;border-color:var(--yellow);color:var(--yellow)}
+.dot.against{background:#2a0d0d;border-color:var(--red);color:var(--red)}
+.warnings{display:flex;flex-direction:column;gap:6px}
+.warn-item{
+  font-size:12px;padding:6px 10px;border-radius:6px;
+  background:#2a1e08;border:1px solid #6e4a0088;color:var(--yellow);
+}
+.warn-item.red{background:#2a0808;border-color:#6e000088;color:var(--red)}
+
+/* ── Trade Plan ────────────────────────────────────────────────────────── */
+.plan{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;margin-bottom:20px;
+}
+.plan-inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:540px){.plan-inputs{grid-template-columns:1fr 1fr;}}
+.plan-field{display:flex;flex-direction:column;gap:5px}
+.plan-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.plan-input{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);
+  color:var(--text);font-size:14px;padding:9px 12px;width:100%;
+  font-family:'JetBrains Mono',monospace;transition:border-color .2s;
+}
+.plan-input:focus{border-color:var(--blue)}
+.plan-results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:540px){.plan-results{grid-template-columns:1fr}}
+.tp-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px;text-align:center;
+  transition:border-color .2s;
+}
+.tp-card.tp1{border-left:3px solid #4a8a4a}
+.tp-card.tp2{border-left:3px solid var(--green)}
+.tp-card.tp3{border-left:3px solid #7aff8a}
+.tp-label{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.tp-price{font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--text)}
+.tp-rr{font-size:11px;color:var(--green);margin-top:2px}
+.plan-meta{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;padding-top:12px;
+  border-top:1px solid var(--border);font-size:12px;color:var(--muted);
+}
+.plan-meta span b{color:var(--text);font-family:'JetBrains Mono',monospace}
+
+/* ── Action Buttons ────────────────────────────────────────────────────── */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.btn{
+  padding:11px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;
+  border:1.5px solid var(--border);background:var(--bg3);color:var(--text);
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.btn:hover{border-color:var(--border2);background:var(--bg2)}
+.btn-primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn-primary:hover{background:#4d9de0;border-color:#4d9de0}
+.btn-success{background:var(--green);border-color:var(--green);color:#000}
+.btn-success:hover{background:#35a845}
+.btn-ghost{background:transparent;color:var(--muted)}
+.btn-ghost:hover{color:var(--text);background:var(--bg3)}
+.copy-toast{
+  font-size:11px;color:var(--green);display:none;
+  align-items:center;gap:4px;padding:4px 0;
+}
+.copy-toast.show{display:flex}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.footer{
+  text-align:center;padding:20px 0;border-top:1px solid var(--border);
+  color:var(--muted);font-size:11px;line-height:1.6;
+}
+.footer strong{color:var(--text)}
+
+/* ── Divider ───────────────────────────────────────────────────────────── */
+.section-title{
+  font-size:11px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Tooltip ───────────────────────────────────────────────────────────── */
+.tip{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--muted);font-size:10px;cursor:help;
+  position:relative;
+}
+.tip:hover::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#1c2128;border:1px solid var(--border);
+  color:var(--text);font-size:11px;padding:6px 10px;border-radius:6px;
+  white-space:nowrap;z-index:100;min-width:180px;white-space:normal;
+  max-width:220px;line-height:1.4;
+}
+
+/* ── Responsive tweaks ─────────────────────────────────────────────────── */
+@media(max-width:480px){
+  .hdr{padding:10px 0 8px}
+  .brand-name{font-size:13px}
+  .hero{padding:18px 0 14px}
+  .plan-inputs{grid-template-columns:1fr 1fr}
+  .actions{gap:7px}
+  .btn{padding:10px 14px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── Header ─────────────────────────────────────────────────────────── -->
+<header class="hdr">
+  <a class="hdr-brand" href="#">
+    <div class="brand-logo">N</div>
+    <div>
+      <div class="brand-name">NoDopamineTrading</div>
+      <div class="brand-sub" data-i="tagline">Pre-Trade Checklist</div>
+    </div>
+  </a>
+  <div class="hdr-right">
+    <button class="lang-btn active" id="btn-vi" onclick="setLang('vi')">🇻🇳 VI</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+  </div>
+</header>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-title"><span data-i="hero.title">Checklist trước khi vào lệnh</span></div>
+  <div class="hero-sub" data-i="hero.sub">8 chỉ báo — đồng thuận hay không đồng thuận — SL/TP tham chiếu. Dùng trước MỌI lệnh.</div>
+</div>
+
+<!-- ── Trade Setup ────────────────────────────────────────────────────── -->
+<div class="section-title" data-i="section.setup">Thiết lập kèo</div>
+<div class="setup-bar">
+  <div class="setup-field" style="max-width:140px">
+    <div class="setup-label" data-i="label.pair">Cặp / Pair</div>
+    <input class="setup-input" id="inp-pair" type="text" placeholder="XAUUSD" value="XAUUSD"
+      list="pair-list" oninput="onPairChange()" style="text-transform:uppercase">
+    <datalist id="pair-list">
+      <option>XAUUSD</option><option>XAGUSD</option>
+      <option>EURUSD</option><option>GBPUSD</option><option>AUDUSD</option>
+      <option>USDJPY</option><option>EURJPY</option><option>GBPJPY</option>
+      <option>USDCAD</option><option>USDCHF</option><option>NZDUSD</option>
+      <option>NAS100</option><option>SP500</option><option>BTCUSD</option>
+    </datalist>
+  </div>
+  <div class="setup-field" style="max-width:180px">
+    <div class="setup-label" data-i="label.direction">Hướng lệnh</div>
+    <div class="dir-toggle">
+      <button class="dir-btn buy active" id="btn-buy" onclick="setDir('BUY')">▲ BUY</button>
+      <button class="dir-btn sell" id="btn-sell" onclick="setDir('SELL')">▼ SELL</button>
+    </div>
+  </div>
+  <div class="setup-field" style="max-width:150px">
+    <div class="setup-label" data-i="label.entry_price">Giá hiện tại</div>
+    <input class="setup-input" id="inp-price" type="number" placeholder="3285.50" step="any"
+      oninput="recalcPlan()">
+  </div>
+  <div class="setup-field" style="max-width:100px">
+    <div class="setup-label" data-i="label.timeframe">Khung TG</div>
+    <select class="setup-input" id="sel-tf" onchange="updateHints()">
+      <option>M15</option><option>M30</option>
+      <option selected>H1</option><option>H4</option><option>D1</option>
+    </select>
+  </div>
+</div>
+
+<!-- ── Indicator Cards ───────────────────────────────────────────────── -->
+<div class="section-title" data-i="section.indicators">8 Chỉ báo</div>
+<div class="ind-grid" id="ind-grid"></div>
+
+<!-- ── Consensus ─────────────────────────────────────────────────────── -->
+<div class="section-title" data-i="section.consensus">Kết quả đồng thuận</div>
+<div class="consensus">
+  <div class="consensus-row">
+    <div class="score-circle" id="score-circle">
+      <div class="score-num" id="score-num">0</div>
+      <div class="score-denom" id="score-denom">/8</div>
+    </div>
+    <div class="verdict-block">
+      <div class="verdict-label wait" id="verdict-label">CHƯA ĐÁNH GIÁ</div>
+      <div class="verdict-sub" id="verdict-sub">Tick các chỉ báo bên trên để xem kết quả</div>
+    </div>
+  </div>
+  <div class="score-bar-wrap">
+    <div class="score-bar-track"><div class="score-bar-fill" id="score-bar" style="width:50%"></div></div>
+    <div class="score-dots" id="score-dots"></div>
+  </div>
+  <div class="warnings" id="warnings" style="display:none"></div>
+</div>
+
+<!-- ── Trade Plan ────────────────────────────────────────────────────── -->
+<div class="section-title" data-i="section.plan">Kế hoạch giao dịch</div>
+<div class="plan">
+  <div class="plan-inputs">
+    <div class="plan-field">
+      <div class="plan-label" data-i="label.entry">Entry</div>
+      <input class="plan-input" id="plan-entry" type="number" placeholder="3285.50" step="any" oninput="recalcPlan()">
+    </div>
+    <div class="plan-field">
+      <div class="plan-label" data-i="label.sl">Stop Loss</div>
+      <input class="plan-input" id="plan-sl" type="number" placeholder="3271.00" step="any" oninput="recalcPlan()">
+    </div>
+    <div class="plan-field">
+      <div class="plan-label" data-i="label.risk_usd">Rủi ro ($)</div>
+      <input class="plan-input" id="plan-risk" type="number" placeholder="50" value="50" oninput="recalcPlan()">
+    </div>
+  </div>
+
+  <div class="plan-results" id="plan-results">
+    <div class="tp-card tp1">
+      <div class="tp-label">TP 1 <span style="color:var(--muted);font-weight:400">(1.5R)</span></div>
+      <div class="tp-price" id="tp1-price">—</div>
+      <div class="tp-rr" id="tp1-rr"></div>
+    </div>
+    <div class="tp-card tp2">
+      <div class="tp-label">TP 2 <span style="color:var(--muted);font-weight:400">(2.5R)</span></div>
+      <div class="tp-price" id="tp2-price">—</div>
+      <div class="tp-rr" id="tp2-rr"></div>
+    </div>
+    <div class="tp-card tp3">
+      <div class="tp-label">TP 3 <span style="color:var(--muted);font-weight:400">(3.5R)</span></div>
+      <div class="tp-price" id="tp3-price">—</div>
+      <div class="tp-rr" id="tp3-rr"></div>
+    </div>
+  </div>
+
+  <div class="plan-meta" id="plan-meta">
+    <span data-i="plan.sl_dist">SL distance: <b id="meta-sl-dist">—</b></span>
+    <span data-i="plan.risk_amt">Risk $: <b id="meta-risk">—</b></span>
+    <span data-i="plan.approx_lot">Lot tham chiếu*: <b id="meta-lot">—</b></span>
+  </div>
+  <div style="font-size:10px;color:var(--muted);margin-top:6px" data-i="plan.lot_note">
+    * Lot ước tính: dùng tick value $10/pip cho cặp tiêu chuẩn. Kiểm tra lại trong MT5 trước khi vào lệnh.
+  </div>
+</div>
+
+<!-- ── Actions ───────────────────────────────────────────────────────── -->
+<div class="actions">
+  <button class="btn btn-primary" onclick="copyResult()">📋 <span data-i="btn.copy">Copy kết quả</span></button>
+  <button class="btn" onclick="resetAll()">🔄 <span data-i="btn.reset">Reset</span></button>
+  <div class="copy-toast" id="copy-toast">✅ <span data-i="toast.copied">Đã copy!</span></div>
+</div>
+<div style="font-size:11px;color:var(--muted);margin-bottom:20px" data-i="share.hint">
+  Dán kết quả vào nhóm Telegram / Zalo để xin ý kiến trước khi vào lệnh.
+</div>
+
+<!-- ── Footer ───────────────────────────────────────────────────────── -->
+<div class="footer">
+  <strong>NoDopamineTrading.com</strong><br>
+  <span data-i="footer.disclaimer">Công cụ giáo dục — không phải lời khuyên tài chính. Trading có rủi ro mất vốn.</span><br>
+  <span style="color:var(--border2)">Educational tool only · Not financial advice · © 2025</span>
+</div>
+
+</div><!-- end .page -->
+
+<script>
+// ── i18n ─────────────────────────────────────────────────────────────────
+const LANG = {
+  vi: {
+    'tagline':'Pre-Trade Checklist',
+    'hero.title':'Checklist trước khi vào lệnh',
+    'hero.sub':'8 chỉ báo — đồng thuận hay không — SL/TP tham chiếu. Dùng trước MỌI lệnh.',
+    'section.setup':'Thiết lập kèo',
+    'section.indicators':'8 Chỉ báo',
+    'section.consensus':'Kết quả đồng thuận',
+    'section.plan':'Kế hoạch giao dịch',
+    'label.pair':'Cặp / Pair',
+    'label.direction':'Hướng lệnh',
+    'label.entry_price':'Giá hiện tại (tuỳ chọn)',
+    'label.timeframe':'Khung TG',
+    'label.entry':'Entry',
+    'label.sl':'Stop Loss',
+    'label.risk_usd':'Rủi ro ($)',
+    'plan.sl_dist':'SL distance:',
+    'plan.risk_amt':'Risk $:',
+    'plan.approx_lot':'Lot tham chiếu*:',
+    'plan.lot_note':'* Lot ước tính dùng $10/pip tiêu chuẩn. Kiểm tra lại trong MT5.',
+    'btn.copy':'Copy kết quả',
+    'btn.reset':'Reset',
+    'toast.copied':'Đã copy!',
+    'share.hint':'Dán vào nhóm Telegram / Zalo để xin ý kiến trước khi vào lệnh.',
+    'footer.disclaimer':'Công cụ giáo dục — không phải lời khuyên tài chính. Trading có rủi ro mất vốn.',
+    'verdict.strong':'🟢 VÀO LỆNH MẠNH',
+    'verdict.go':'✅ CÓ THỂ VÀO LỆNH',
+    'verdict.wait':'⚠️ CHỜ THÊM XÁC NHẬN',
+    'verdict.avoid':'🔴 TRÁNH — CHƯA ĐỦ ĐK',
+    'verdict.neutral':'Tick các chỉ báo bên trên',
+    'sub.strong':'Đa số chỉ báo đồng thuận — setup chất lượng cao.',
+    'sub.go':'Đủ điều kiện cơ bản — cân nhắc vào lệnh thận trọng.',
+    'sub.wait':'Chưa đủ xác nhận — đợi thêm tín hiệu.',
+    'sub.avoid':'Có quá nhiều chỉ báo nghịch — bỏ qua kèo này.',
+  },
+  en: {
+    'tagline':'Pre-Trade Checklist',
+    'hero.title':'Pre-Trade Checklist',
+    'hero.sub':'8 indicators — confirm agreement before every trade — SL/TP reference included.',
+    'section.setup':'Trade Setup',
+    'section.indicators':'8 Indicators',
+    'section.consensus':'Consensus Result',
+    'section.plan':'Trade Plan',
+    'label.pair':'Pair',
+    'label.direction':'Direction',
+    'label.entry_price':'Current Price (optional)',
+    'label.timeframe':'Timeframe',
+    'label.entry':'Entry',
+    'label.sl':'Stop Loss',
+    'label.risk_usd':'Risk ($)',
+    'plan.sl_dist':'SL distance:',
+    'plan.risk_amt':'Risk $:',
+    'plan.approx_lot':'Approx lot*:',
+    'plan.lot_note':'* Lot estimate uses $10/pip standard. Verify in MT5 before trading.',
+    'btn.copy':'Copy Result',
+    'btn.reset':'Reset',
+    'toast.copied':'Copied!',
+    'share.hint':'Paste result in your Telegram / Discord group for review before entering.',
+    'footer.disclaimer':'Educational tool only — not financial advice. Trading involves risk of loss.',
+    'verdict.strong':'🟢 STRONG ENTRY',
+    'verdict.go':'✅ ENTRY OK',
+    'verdict.wait':'⚠️ WAIT FOR MORE CONFIRMATION',
+    'verdict.avoid':'🔴 AVOID — INSUFFICIENT SETUP',
+    'verdict.neutral':'Tick the indicators above',
+    'sub.strong':'Most indicators agree — high-quality setup.',
+    'sub.go':'Basic conditions met — consider entering cautiously.',
+    'sub.wait':'Not enough confirmation — wait for more signals.',
+    'sub.avoid':'Too many indicators against — skip this trade.',
+  }
+};
+
+let _lang = localStorage.getItem('ndt_lang') || 'vi';
+function t(k){ return (LANG[_lang]||LANG.vi)[k] || k }
+function setLang(l){
+  _lang = l;
+  localStorage.setItem('ndt_lang', l);
+  document.querySelectorAll('[data-i]').forEach(el => {
+    const val = t(el.dataset.i);
+    if(val) el.textContent = val;
+  });
+  document.getElementById('btn-vi').classList.toggle('active', l==='vi');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  renderIndicators();
+  updateConsensus();
+}
+
+// ── Indicator Definitions ─────────────────────────────────────────────────
+const INDICATORS = [
+  {
+    id:'ema200', icon:'📊',
+    name:{vi:'EMA200 Alignment',en:'EMA200 Alignment'},
+    desc:{
+      vi:'Giá có thuận chiều EMA200 trên H4?',
+      en:'Is price aligned with EMA200 on H4?'
+    },
+    hint:{
+      BUY:{vi:'✅ Giá trên EMA200 H4 → hướng tăng chính',en:'✅ Price above EMA200 H4 → uptrend'},
+      SELL:{vi:'✅ Giá dưới EMA200 H4 → hướng giảm chính',en:'✅ Price below EMA200 H4 → downtrend'}
+    },
+    warn:{vi:'❌ Ngược trend chính — rất rủi ro',en:'❌ Against main trend — high risk'}
+  },
+  {
+    id:'adx', icon:'📈',
+    name:{vi:'ADX Strength',en:'ADX Strength'},
+    desc:{vi:'ADX H4: đo lực xu hướng (mục tiêu > 25)',en:'ADX H4: trend strength (target > 25)'},
+    hint:{
+      BUY:{vi:'✅ ADX > 25 → xu hướng rõ | ⚠️ 20-25 yếu | ❌ < 20 sideway',
+           en:'✅ ADX > 25 → clear trend | ⚠️ 20-25 weak | ❌ < 20 ranging'},
+      SELL:{vi:'✅ ADX > 25 → xu hướng rõ | ⚠️ 20-25 yếu | ❌ < 20 sideway',
+            en:'✅ ADX > 25 → clear trend | ⚠️ 20-25 weak | ❌ < 20 ranging'},
+    },
+    warn:{vi:'❌ ADX thấp = sideway — tránh breakout, cân nhắc Grid',en:'❌ Low ADX = ranging — avoid breakouts, consider Grid'}
+  },
+  {
+    id:'ob', icon:'🧱',
+    name:{vi:'Order Block',en:'Order Block'},
+    desc:{vi:'Có OB fresh tại vùng giá hiện tại?',en:'Fresh Order Block at current price zone?'},
+    hint:{
+      BUY:{vi:'✅ OB tăng (bearish candle → bullish impulse) tại vùng giá',en:'✅ Bullish OB (bearish candle → bullish impulse) at current zone'},
+      SELL:{vi:'✅ OB giảm (bullish candle → bearish impulse) tại vùng giá',en:'✅ Bearish OB (bullish candle → bearish impulse) at current zone'}
+    },
+    warn:{vi:'❌ Không có OB → không có neo tham chiếu cho SL',en:'❌ No OB → no reference anchor for SL'}
+  },
+  {
+    id:'rsi', icon:'⚡',
+    name:{vi:'RSI Zone (H1)',en:'RSI Zone (H1)'},
+    desc:{vi:'RSI H1 có trong vùng hợp lý chưa?',en:'Is RSI H1 in a favorable zone?'},
+    hint:{
+      BUY:{vi:'✅ RSI < 45 (không overbought, còn room tăng)',en:'✅ RSI < 45 (not overbought, room to rise)'},
+      SELL:{vi:'✅ RSI > 55 (không oversold, còn room giảm)',en:'✅ RSI > 55 (not oversold, room to fall)'}
+    },
+    warn:{vi:'❌ RSI cực đoan ngược chiều — momentum yếu',en:'❌ RSI extreme against direction — weak momentum'}
+  },
+  {
+    id:'rsi_div', icon:'🔀',
+    name:{vi:'RSI Divergence',en:'RSI Divergence'},
+    desc:{vi:'Có phân kỳ RSI H1 không?',en:'Any RSI divergence on H1?'},
+    hint:{
+      BUY:{vi:'✅ Phân kỳ tăng (price LL, RSI HL) → lực đảo chiều | ❌ Phân kỳ giảm = đuối lực sắp tới',
+           en:'✅ Bullish div (price LL, RSI HL) → reversal momentum | ❌ Bearish div = losing momentum'},
+      SELL:{vi:'✅ Phân kỳ giảm (price HH, RSI LH) → đuối lực | ❌ Phân kỳ tăng = cảnh báo đảo chiều',
+            en:'✅ Bearish div (price HH, RSI LH) → fading | ❌ Bullish div = reversal warning'}
+    },
+    warn:{vi:'❌ Phân kỳ ngược chiều — cần thêm xác nhận',en:'❌ Divergence against direction — need more confirmation'}
+  },
+  {
+    id:'session', icon:'🕐',
+    name:{vi:'Session Quality',en:'Session Quality'},
+    desc:{vi:'Phiên giao dịch hiện tại có chất lượng?',en:'Is the current trading session quality?'},
+    hint:{
+      BUY:{vi:'✅ London / New York / Overlap → vol cao, setup tin cậy hơn',en:'✅ London / New York / Overlap → high vol, reliable setups'},
+      SELL:{vi:'✅ London / New York / Overlap → vol cao, setup tin cậy hơn',en:'✅ London / New York / Overlap → high vol, reliable setups'}
+    },
+    warn:{vi:'⚠️ Asian session (FX) — breakout giả nhiều, cẩn thận',en:'⚠️ Asian session (FX) — many false breakouts, be careful'},
+    autoDetect: true
+  },
+  {
+    id:'sweep', icon:'💧',
+    name:{vi:'Liquidity Sweep',en:'Liquidity Sweep'},
+    desc:{vi:'Smart money đã quét thanh khoản chưa?',en:'Has smart money swept liquidity?'},
+    hint:{
+      BUY:{vi:'✅ Equal lows vừa bị quét → smart money đã dọn stop → kỳ vọng đảo chiều tăng',
+           en:'✅ Equal lows just swept → stops cleared → expect bullish reversal'},
+      SELL:{vi:'✅ Equal highs vừa bị quét → smart money đã dọn stop → kỳ vọng đảo chiều giảm',
+            en:'✅ Equal highs just swept → stops cleared → expect bearish reversal'}
+    },
+    warn:{vi:'❌ Chưa có sweep → chưa dọn stop → stop hunt có thể xảy ra sau entry',en:'❌ No sweep → stops not cleared → may get stop hunted after entry'}
+  },
+  {
+    id:'news', icon:'📰',
+    name:{vi:'News Filter',en:'News Filter'},
+    desc:{vi:'Có tin đỏ trong 4h tới không?',en:'Any red news in the next 4 hours?'},
+    hint:{
+      BUY:{vi:'✅ Không có tin đỏ | ⚠️ Tin vàng (cẩn thận) | ❌ Tin đỏ → không vào lệnh',
+           en:'✅ No red news | ⚠️ Yellow news (caution) | ❌ Red news → do not trade'},
+      SELL:{vi:'✅ Không có tin đỏ | ⚠️ Tin vàng (cẩn thận) | ❌ Tin đỏ → không vào lệnh',
+            en:'✅ No red news | ⚠️ Yellow news (caution) | ❌ Red news → do not trade'}
+    },
+    warn:{vi:'❌ Có tin đỏ — tránh vào lệnh 15 phút trước/sau tin',en:'❌ Red news upcoming — avoid trading 15 min before/after'}
+  },
+];
+
+// ── State ─────────────────────────────────────────────────────────────────
+let _dir = 'BUY';
+let _states = {}; // id → 'favorable'|'neutral'|'against'
+
+// ── Render Indicators ─────────────────────────────────────────────────────
+function renderIndicators() {
+  const grid = document.getElementById('ind-grid');
+  grid.innerHTML = '';
+  INDICATORS.forEach(ind => {
+    const state = _states[ind.id] || 'neutral';
+    const card = document.createElement('div');
+    card.className = `ind-card state-${state}`;
+    card.id = `card-${ind.id}`;
+
+    const badge = state === 'favorable' ? '✅' : state === 'against' ? '❌' : '⚠️';
+    const hintText = ind.hint[_dir] ? ind.hint[_dir][_lang] : '';
+
+    card.innerHTML = `
+      <div class="state-badge">${badge}</div>
+      <div class="ind-header">
+        <div class="ind-icon">${ind.icon}</div>
+        <div class="ind-info">
+          <div class="ind-name">${ind.name[_lang]}</div>
+          <div class="ind-desc">${ind.desc[_lang]}</div>
+          ${hintText ? `<div class="ind-hint visible">${hintText}</div>` : ''}
+        </div>
+      </div>
+      <div class="state-toggle">
+        <button class="state-btn favorable ${state==='favorable'?'active':''}"
+          onclick="setState('${ind.id}','favorable')">✅ ${_lang==='vi'?'Thuận':'OK'}</button>
+        <button class="state-btn neutral ${state==='neutral'?'active':''}"
+          onclick="setState('${ind.id}','neutral')">⚠️ ${_lang==='vi'?'Trung tính':'Neutral'}</button>
+        <button class="state-btn against ${state==='against'?'active':''}"
+          onclick="setState('${ind.id}','against')">❌ ${_lang==='vi'?'Nghịch':'Against'}</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function setState(id, state) {
+  _states[id] = state;
+  renderIndicators();
+  updateConsensus();
+}
+
+// ── Direction ─────────────────────────────────────────────────────────────
+function setDir(d) {
+  _dir = d;
+  document.getElementById('btn-buy').classList.toggle('active', d==='BUY');
+  document.getElementById('btn-sell').classList.toggle('active', d==='SELL');
+  renderIndicators();
+  updateConsensus();
+}
+
+// ── Pair change ───────────────────────────────────────────────────────────
+function onPairChange() {
+  const v = document.getElementById('inp-pair').value.toUpperCase();
+  document.getElementById('inp-pair').value = v;
+}
+
+// ── Session auto-detect ───────────────────────────────────────────────────
+function getSessionInfo() {
+  const h = new Date().getUTCHours();
+  if (h >= 12 && h < 16) return { label:'London/NY Overlap 🔥', quality:'favorable' };
+  if (h >= 7  && h < 16) return { label:'London 🇬🇧', quality:'favorable' };
+  if (h >= 16 && h < 21) return { label:'New York 🗽', quality:'favorable' };
+  if (h >= 0  && h < 7 ) return { label:'Tokyo/Asia 🌏', quality:'neutral' };
+  return { label:'Sydney 🌙', quality:'neutral' };
+}
+
+// ── Consensus Calculation ─────────────────────────────────────────────────
+function updateConsensus() {
+  let favorable = 0, against = 0, neutral = 0;
+  const dotStates = [];
+
+  INDICATORS.forEach(ind => {
+    const s = _states[ind.id] || 'neutral';
+    dotStates.push(s);
+    if (s === 'favorable') favorable++;
+    else if (s === 'against') against++;
+    else neutral++;
+  });
+
+  const net = favorable - against;
+  const total = 8;
+  const pct = Math.round(((net + total) / (total * 2)) * 100);
+
+  // Score circle
+  const circle = document.getElementById('score-circle');
+  const numEl  = document.getElementById('score-num');
+  numEl.textContent = favorable;
+
+  // Verdict
+  const vLabel = document.getElementById('verdict-label');
+  const vSub   = document.getElementById('verdict-sub');
+  let vClass, vText, vSubText;
+
+  if (favorable + against === 0) {
+    vClass='wait'; vText=t('verdict.neutral'); vSubText='';
+  } else if (pct >= 75) {
+    vClass='strong'; vText=t('verdict.strong'); vSubText=t('sub.strong');
+  } else if (pct >= 60) {
+    vClass='go'; vText=t('verdict.go'); vSubText=t('sub.go');
+  } else if (pct >= 45) {
+    vClass='wait'; vText=t('verdict.wait'); vSubText=t('sub.wait');
+  } else {
+    vClass='avoid'; vText=t('verdict.avoid'); vSubText=t('sub.avoid');
+  }
+
+  circle.className = `score-circle ${vClass}`;
+  vLabel.className = `verdict-label ${vClass}`;
+  vLabel.textContent = vText;
+  vSub.textContent = vSubText;
+
+  // Bar
+  const bar = document.getElementById('score-bar');
+  bar.style.width = pct + '%';
+  const barColor = pct>=75?'var(--green)':pct>=60?'#5fa35f':pct>=45?'var(--yellow)':'var(--red)';
+  bar.style.background = barColor;
+
+  // Dots
+  const dotsEl = document.getElementById('score-dots');
+  dotsEl.innerHTML = dotStates.map((s,i) => {
+    const em = s==='favorable'?'✅':s==='against'?'❌':'⚠️';
+    return `<div class="dot ${s}" title="${INDICATORS[i].name[_lang]}">${em}</div>`;
+  }).join('');
+
+  // Warnings
+  const warns = [];
+  INDICATORS.forEach(ind => {
+    if ((_states[ind.id]||'neutral') === 'against' && ind.warn) {
+      warns.push(`<div class="warn-item${ind.id==='news'?' red':''}">${ind.warn[_lang]}</div>`);
+    }
+  });
+  const warnsEl = document.getElementById('warnings');
+  if (warns.length) {
+    warnsEl.style.display = 'flex';
+    warnsEl.innerHTML = warns.join('');
+  } else {
+    warnsEl.style.display = 'none';
+  }
+}
+
+// ── Trade Plan Calculator ─────────────────────────────────────────────────
+function recalcPlan() {
+  const entry  = parseFloat(document.getElementById('plan-entry').value) || 0;
+  const sl     = parseFloat(document.getElementById('plan-sl').value)    || 0;
+  const risk   = parseFloat(document.getElementById('plan-risk').value)  || 50;
+
+  // Sync entry input with price field
+  const priceInp = document.getElementById('inp-price');
+  const priceVal = parseFloat(priceInp.value) || 0;
+  if (priceVal && !entry) document.getElementById('plan-entry').value = priceVal;
+
+  if (!entry || !sl || entry === sl) {
+    ['tp1','tp2','tp3'].forEach(tp => {
+      document.getElementById(`${tp}-price`).textContent = '—';
+      document.getElementById(`${tp}-rr`).textContent = '';
+    });
+    document.getElementById('meta-sl-dist').textContent = '—';
+    document.getElementById('meta-risk').textContent = '—';
+    document.getElementById('meta-lot').textContent = '—';
+    return;
+  }
+
+  const isBuy   = _dir === 'BUY';
+  const slDist  = Math.abs(entry - sl);
+  const tp1val  = isBuy ? entry + slDist*1.5 : entry - slDist*1.5;
+  const tp2val  = isBuy ? entry + slDist*2.5 : entry - slDist*2.5;
+  const tp3val  = isBuy ? entry + slDist*3.5 : entry - slDist*3.5;
+
+  // Detect decimal places from pair
+  const pair = document.getElementById('inp-pair').value.toUpperCase();
+  const isJPY = pair.includes('JPY');
+  const isXAU = pair.includes('XAU') || pair.includes('XAG');
+  const decimals = isJPY ? 3 : isXAU ? 2 : 5;
+  const fmt = v => v.toFixed(decimals);
+
+  document.getElementById('tp1-price').textContent = fmt(tp1val);
+  document.getElementById('tp2-price').textContent = fmt(tp2val);
+  document.getElementById('tp3-price').textContent = fmt(tp3val);
+  document.getElementById('tp1-rr').textContent = 'RR 1.5';
+  document.getElementById('tp2-rr').textContent = 'RR 2.5';
+  document.getElementById('tp3-rr').textContent = 'RR 3.5';
+
+  // Pip distance & lot estimate
+  const pipDiv  = isJPY ? 0.01 : isXAU ? 0.1 : 0.0001;
+  const slPips  = slDist / pipDiv;
+  const pipVal  = isXAU ? 1.0 : (isJPY ? 7.0 : 10.0); // approx $/pip per standard lot
+  const lot     = risk / (slPips * pipVal);
+
+  document.getElementById('meta-sl-dist').textContent = slPips.toFixed(1) + ' pips';
+  document.getElementById('meta-risk').textContent    = '$' + risk.toFixed(2);
+  document.getElementById('meta-lot').textContent     = lot > 0 ? lot.toFixed(2) + ' lot' : '—';
+}
+
+// ── Copy Result ───────────────────────────────────────────────────────────
+function copyResult() {
+  const pair  = document.getElementById('inp-pair').value || 'PAIR';
+  const entry = document.getElementById('plan-entry').value;
+  const sl    = document.getElementById('plan-sl').value;
+  const tp1   = document.getElementById('tp1-price').textContent;
+  const tp2   = document.getElementById('tp2-price').textContent;
+  const lot   = document.getElementById('meta-lot').textContent;
+
+  const stateIcon = s => s==='favorable'?'✅':s==='against'?'❌':'⚠️';
+  const lines = [
+    `📋 Pre-Trade Checklist · ${pair} ${_dir}`,
+    `${'─'.repeat(32)}`,
+    ...INDICATORS.map(ind => `${stateIcon(_states[ind.id]||'neutral')} ${ind.name[_lang]}`),
+    `${'─'.repeat(32)}`,
+  ];
+
+  const favorable = Object.values(_states).filter(s=>s==='favorable').length;
+  const against   = Object.values(_states).filter(s=>s==='against').length;
+  const net = favorable - against;
+  let verdict = net >= 4 ? (net >= 6 ? t('verdict.strong') : t('verdict.go'))
+              : net >= 0 ? t('verdict.wait') : t('verdict.avoid');
+  lines.push(`Kết quả: ${favorable}/8 thuận | ${against}/8 nghịch`);
+  lines.push(`Verdict: ${verdict}`);
+  if (entry) lines.push(`Entry: ${entry} | SL: ${sl} | TP1: ${tp1} | TP2: ${tp2}`);
+  if (lot !== '—') lines.push(`Lot: ${lot}`);
+  lines.push(`${'─'.repeat(32)}`);
+  lines.push(`🔗 NoDopamineTrading.com`);
+
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    const toast = document.getElementById('copy-toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────────
+function resetAll() {
+  _states = {};
+  ['plan-entry','plan-sl'].forEach(id => document.getElementById(id).value = '');
+  renderIndicators();
+  updateConsensus();
+  recalcPlan();
+}
+
+// ── Update Hints (direction/tf change) ───────────────────────────────────
+function updateHints() {
+  renderIndicators();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+(function init() {
+  // Auto-detect session and pre-fill
+  const sess = getSessionInfo();
+  _states['session'] = sess.quality;
+
+  setLang(_lang);
+  renderIndicators();
+  updateConsensus();
+
+  // Sync price field to plan entry on input
+  document.getElementById('inp-price').addEventListener('input', function(){
+    document.getElementById('plan-entry').value = this.value;
+    recalcPlan();
+  });
+})();
+</script>
+</body>
+</html>

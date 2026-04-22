@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoDopamine Trading — Trade Smart. Trade Calm.</title>
+<meta name="description" content="Hệ thống trading tín hiệu chuyên nghiệp. Checklist 8 chỉ báo, tín hiệu VIP tự động, giáo dục kỹ thuật SMC.">
+<style>
+  :root {
+    --bg:      #0d1117;
+    --bg2:     #161b22;
+    --bg3:     #1c2333;
+    --border:  #30363d;
+    --gold:    #d4a843;
+    --gold2:   #f0c060;
+    --green:   #3fb950;
+    --blue:    #58a6ff;
+    --purple:  #bc8cff;
+    --red:     #f85149;
+    --text:    #e6edf3;
+    --muted:   #8b949e;
+    --radius:  12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 64px;
+    background: rgba(13,17,23,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 18px; font-weight: 700; color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-logo .n-mark {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; color: #0d1117;
+  }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 14px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    padding: 8px 20px; border-radius: 8px;
+    background: var(--gold); color: #0d1117;
+    font-weight: 700; font-size: 14px; text-decoration: none;
+    transition: opacity .2s;
+  }
+  .nav-cta:hover { opacity: .85; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,168,67,.12), transparent),
+      radial-gradient(ellipse 40% 30% at 80% 60%, rgba(88,166,255,.08), transparent);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; border-radius: 99px;
+    border: 1px solid rgba(212,168,67,.4);
+    background: rgba(212,168,67,.08);
+    font-size: 13px; color: var(--gold2);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800; line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--muted); max-width: 560px; margin: 0 auto 40px;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    padding: 14px 32px; border-radius: 10px;
+    background: var(--gold); color: #0d1117;
+    font-weight: 700; font-size: 16px; text-decoration: none;
+    transition: transform .2s, opacity .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); opacity: .9; }
+  .btn-secondary {
+    padding: 14px 32px; border-radius: 10px;
+    background: transparent; color: var(--text);
+    font-weight: 600; font-size: 16px; text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color .2s, background .2s;
+  }
+  .btn-secondary:hover { border-color: var(--muted); background: var(--bg2); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--gold); }
+  .stat-label { font-size: 13px; color: var(--muted); }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 80px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    font-size: 12px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+    line-height: 1.2; margin-bottom: 16px;
+  }
+  .section-sub { color: var(--muted); font-size: 17px; max-width: 560px; }
+
+  /* ── HOW IT WORKS ── */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 48px; }
+  .step {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 24px;
+  }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(212,168,67,.15); color: var(--gold);
+    font-weight: 800; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--muted); }
+
+  /* ── CHECKLIST PREVIEW ── */
+  .checklist-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 48px; }
+  .checklist-indicators { display: flex; flex-direction: column; gap: 10px; }
+  .indicator-row {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 16px;
+  }
+  .ind-icon { font-size: 18px; width: 28px; text-align: center; }
+  .ind-name { flex: 1; font-size: 14px; font-weight: 600; }
+  .ind-state {
+    font-size: 12px; font-weight: 700; padding: 3px 10px;
+    border-radius: 99px;
+  }
+  .ind-state.good { background: rgba(63,185,80,.15); color: var(--green); }
+  .ind-state.warn { background: rgba(210,153,34,.15); color: #d29922; }
+  .ind-state.bad  { background: rgba(248,81,73,.15);  color: var(--red); }
+  .checklist-text h3 { font-size: 24px; font-weight: 800; margin-bottom: 16px; }
+  .checklist-text p { color: var(--muted); margin-bottom: 24px; line-height: 1.7; }
+  .verdict-box {
+    background: rgba(63,185,80,.08); border: 1px solid rgba(63,185,80,.3);
+    border-radius: 10px; padding: 16px 20px; margin-bottom: 24px;
+    font-size: 20px; font-weight: 800; color: var(--green);
+  }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+  .plan {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px 28px;
+    position: relative;
+    transition: border-color .2s, transform .2s;
+  }
+  .plan:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .plan.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(212,168,67,.05), var(--bg2));
+  }
+  .plan-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #0d1117;
+    font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 99px;
+    letter-spacing: .05em; text-transform: uppercase;
+  }
+  .plan-name { font-size: 14px; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+  .plan-price {
+    font-size: 36px; font-weight: 800; margin-bottom: 4px;
+  }
+  .plan-price span { font-size: 16px; font-weight: 400; color: var(--muted); }
+  .plan-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px;
+  }
+  .plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .plan-features li.muted::before { content: '○'; color: var(--border); }
+  .plan-features li.muted { color: var(--muted); }
+  .plan-btn {
+    display: block; text-align: center;
+    padding: 12px; border-radius: 8px;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .plan-btn:hover { opacity: .85; transform: translateY(-1px); }
+  .plan-btn.gold { background: var(--gold); color: #0d1117; }
+  .plan-btn.outline { border: 1px solid var(--border); color: var(--text); background: transparent; }
+  .plan-btn.outline:hover { border-color: var(--gold); }
+
+  /* ── TELEGRAM ── */
+  .tg-section { text-align: center; }
+  .tg-box {
+    display: inline-flex; align-items: center; gap: 16px;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 36px; margin-top: 32px;
+  }
+  .tg-icon { font-size: 40px; }
+  .tg-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .tg-box p { font-size: 14px; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 24px; text-align: center;
+    font-size: 13px; color: var(--muted);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .checklist-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="n-mark">N</div>
+    <span>NoDopamine<span style="color:var(--text);font-weight:400">Trading</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">Cách hoạt động</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#pricing">Gói dịch vụ</a>
+    <a href="#telegram">Telegram</a>
+  </div>
+  <a class="nav-cta" href="#checklist">Dùng thử miễn phí</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">🎯 Signal Monitor · Live</div>
+  <h1>Trade Smart.<br><span>Trade Calm.</span></h1>
+  <p class="hero-sub">
+    Hệ thống tín hiệu trading dựa trên SMC — không FOMO, không đoán mò.
+    Checklist 8 chỉ báo giúp bạn vào lệnh có kỷ luật.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#checklist">📋 Dùng Checklist miễn phí</a>
+    <a class="btn-secondary" href="#pricing">Xem gói VIP →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Chỉ báo SMC</div></div>
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Cặp theo dõi</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Chiến lược Sniper</div></div>
+    <div class="stat"><div class="stat-num">24/5</div><div class="stat-label">Monitor live</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-tag">Quy trình</div>
+    <h2 class="section-title">Làm thế nào để vào lệnh đúng?</h2>
+    <p class="section-sub">Không cần kinh nghiệm phức tạp. Chỉ cần follow checklist là đủ.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Xác định hướng</h3>
+        <p>Chọn BUY hoặc SELL theo bias ngày. EMA200 + ADX cho thấy xu hướng chính.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Check 8 chỉ báo</h3>
+        <p>Toggle từng chỉ báo: Thuận / Trung tính / Nghịch. Hệ thống tính đồng thuận tự động.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Xem kết quả</h3>
+        <p>STRONG ≥75% → Vào lệnh tự tin. GO ≥60% → Cân nhắc. WAIT/AVOID → Bỏ qua.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Tính SL/TP</h3>
+        <p>Nhập Entry + SL → hệ thống tính TP1 (1.5R), TP2 (2.5R), TP3 (3.5R) và lot tham khảo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST PREVIEW -->
+<section class="checklist-section" id="checklist">
+  <div class="container">
+    <div class="section-tag">Free Tool</div>
+    <h2 class="section-title">Checklist Vào Lệnh</h2>
+    <p class="section-sub">Công cụ miễn phí. Không cần tài khoản, không cần TradingView premium.</p>
+    <div class="checklist-grid">
+      <div class="checklist-indicators">
+        <div class="indicator-row">
+          <div class="ind-icon">📊</div>
+          <div class="ind-name">EMA200 Alignment</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">📈</div>
+          <div class="ind-name">ADX Strength</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">🧱</div>
+          <div class="ind-name">Order Block</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">⚡</div>
+          <div class="ind-name">RSI Zone H1</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">🔀</div>
+          <div class="ind-name">RSI Divergence</div>
+          <div class="ind-state warn">Trung tính</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">🕐</div>
+          <div class="ind-name">Session Quality</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">💧</div>
+          <div class="ind-name">Liquidity Sweep</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+        <div class="indicator-row">
+          <div class="ind-icon">📰</div>
+          <div class="ind-name">News Filter</div>
+          <div class="ind-state good">Thuận</div>
+        </div>
+      </div>
+      <div class="checklist-text">
+        <h3>Đồng thuận thông minh, không đoán mò</h3>
+        <p>
+          Mỗi chỉ báo có gợi ý riêng theo hướng BUY/SELL. Hệ thống tính
+          điểm đồng thuận và đưa ra verdict rõ ràng — không cần phải tự phân tích từng thứ.
+        </p>
+        <div class="verdict-box">✅ STRONG — 87.5% đồng thuận</div>
+        <p style="font-size:14px;color:var(--muted);">
+          Kèm tính toán TP1/TP2/TP3 và lot tham khảo theo % risk tài khoản.
+          Copy 1 click gửi Telegram/Zalo.
+        </p>
+        <a class="btn-primary" href="checklist/index.html" style="display:inline-flex;margin-top:8px;">
+          📋 Mở Checklist Tool →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-tag">Gói dịch vụ</div>
+    <h2 class="section-title">Chọn cấp độ phù hợp</h2>
+    <p class="section-sub">Bắt đầu miễn phí. Nâng cấp khi sẵn sàng.</p>
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="plan">
+        <div class="plan-name">FREE</div>
+        <div class="plan-price">$0 <span>/ tháng</span></div>
+        <div class="plan-desc">Bắt đầu có kỷ luật ngay hôm nay</div>
+        <ul class="plan-features">
+          <li>Checklist 8 chỉ báo SMC</li>
+          <li>Tính SL/TP/Lot tự động</li>
+          <li>Copy kết quả cho Telegram</li>
+          <li>VI / EN song ngữ</li>
+          <li class="muted">Tín hiệu tự động VIP</li>
+          <li class="muted">Signal Monitor live</li>
+          <li class="muted">Giáo dục kỹ thuật</li>
+        </ul>
+        <a class="plan-btn outline" href="checklist/index.html">Dùng miễn phí</a>
+      </div>
+
+      <!-- VIP -->
+      <div class="plan featured">
+        <div class="plan-badge">🔥 Phổ biến nhất</div>
+        <div class="plan-name">VIP</div>
+        <div class="plan-price">Sắp ra <span>/ tháng</span></div>
+        <div class="plan-desc">Tín hiệu tự động, không cần ngồi chờ</div>
+        <ul class="plan-features">
+          <li>Tất cả tính năng Free</li>
+          <li>Tín hiệu Sniper tự động (15+ pairs)</li>
+          <li>Alert Telegram real-time</li>
+          <li>Score Monitor (Swing setup)</li>
+          <li>RR ≥ 2.0, Quality Score filter</li>
+          <li class="muted">Khóa học SMC</li>
+          <li class="muted">1-on-1 review lệnh</li>
+        </ul>
+        <a class="plan-btn gold" href="#telegram">Nhận thông báo ra mắt</a>
+      </div>
+
+      <!-- ELITE -->
+      <div class="plan">
+        <div class="plan-name">ELITE</div>
+        <div class="plan-price">Sắp ra <span>/ tháng</span></div>
+        <div class="plan-desc">Tín hiệu + Giáo dục + Hỗ trợ cá nhân</div>
+        <ul class="plan-features">
+          <li>Tất cả tính năng VIP</li>
+          <li>Khóa học SMC · OB · Liquidity</li>
+          <li>Review lệnh hàng tuần</li>
+          <li>Grid EA Bot (MQL5) – cho thuê</li>
+          <li>Private group Discord/Telegram</li>
+          <li>Ưu tiên hỗ trợ 1-on-1</li>
+          <li>Cập nhật chiến lược mới sớm nhất</li>
+        </ul>
+        <a class="plan-btn outline" href="#telegram">Nhận thông báo ra mắt</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TELEGRAM -->
+<section class="tg-section" id="telegram">
+  <div class="container">
+    <div class="section-tag">Cộng đồng</div>
+    <h2 class="section-title">Kết nối ngay</h2>
+    <p class="section-sub" style="margin:0 auto;">
+      Theo dõi kênh Telegram để nhận update sớm nhất, tín hiệu thử nghiệm miễn phí và thông báo ra mắt VIP.
+    </p>
+    <div class="tg-box">
+      <div class="tg-icon">✈️</div>
+      <div>
+        <h3>@NoDopamineTrading</h3>
+        <p>Kênh Telegram — Tín hiệu · Giáo dục · Update</p>
+      </div>
+      <a class="btn-primary" href="https://t.me/NoDopamineTrading" target="_blank" style="margin-left:16px;">
+        Tham gia →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    © 2026 <a href="#">NoDopamineTrading.com</a> · Educational content only · Not financial advice
+  </p>
+  <p style="margin-top:8px;">
+    <a href="checklist/index.html">Checklist Tool</a> ·
+    <a href="#pricing">Gói dịch vụ</a> ·
+    <a href="https://t.me/NoDopamineTrading" target="_blank">Telegram</a>
+  </p>
+</footer>
+
+</body>
+</html>
